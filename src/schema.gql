@@ -1,0 +1,158 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ProductGQL {
+  ABC: Int
+  code: ID!
+  pack: Float!
+  box: Int
+  weight: Float
+  price: Float!
+  category: String!
+  group: String!
+  name: String!
+  discription: String!
+  pass: String
+  tech: String
+  img: String
+  sae: String
+  fullDiscription: String
+  using: String
+  benefits: String
+  recomendation: String
+  instructions: String
+  quantity: String
+  approvs: [String]
+  approvsEqual: [String]
+  approvsRecomendation: [String]
+}
+
+type SearchNameGQL {
+  name: String!
+  code: String!
+  price: Float!
+}
+
+type CategoryFilterGQL {
+  sae: [String!]
+  pack: [Float!]
+}
+
+type CallRequestGQL {
+  name: String!
+  phone: String!
+  date: String!
+}
+
+type OilChooseRequestGQL {
+  name: String!
+  phone: String!
+  carBrand: String!
+  carModel: String!
+  year: String!
+  engine: String!
+  transmission: String!
+  date: String!
+}
+
+type WholesaleRequestGQL {
+  name: String!
+  company: String!
+  inn: String!
+  email: String!
+  phone: String!
+  date: String!
+}
+
+type CartItemGQL {
+  count: Int!
+  product: ProductGQL!
+}
+
+type NoLoggedUserGQL {
+  token: String!
+  favorites: [String]!
+  cart: [CartItemGQL]
+}
+
+type OrderGQL {
+  date: String
+  name: String!
+  phone: String!
+  delivery: String!
+  adress: String
+  cart: [CartItemGQL!]!
+  number: Float!
+  mail: String!
+  personal: Boolean!
+  payment: String!
+}
+
+type UserGQL {
+  name: String!
+  email: String!
+  date: String!
+  phone: String!
+  favorites: [String]!
+  orders: [OrderGQL]
+  cart: [CartItemGQL]
+  _id: String
+  adress: String
+}
+
+type TokenGQL {
+  access_token: String!
+  name: String!
+  email: String!
+  phone: String!
+  favorites: [String!]!
+}
+
+type Query {
+  getCatalog(ABC: Float, code: String, pack: [Float], category: [String], group: String, name: String, sae: [String], sortPoll: String = "quantity", descending: Boolean = false): [ProductGQL!]!
+  getSearchList(length: Float, input: String!): [SearchNameGQL!]!
+  getFilterList(category: String): CategoryFilterGQL!
+  getCatalogSampledCodes(codes: [String!]): [ProductGQL!]!
+  getNotLoggedUser(token: String!): NoLoggedUserGQL
+  getUserOrdersList: [OrderGQL!]!
+  getUserOrder(number: Float): OrderGQL!
+  getUser: UserGQL!
+  loginUser(email: String!, password: String!): TokenGQL
+  checkIsAdmin: Boolean!
+  verifyEmail(emailToken: String!): UserGQL
+  passwordRecoveryReq(email: String!): Boolean!
+  recoveryTokenCheck(token: String!): Boolean!
+}
+
+type Mutation {
+  updateCart(token: String!, cart: [CartItemARGS]): NoLoggedUserGQL!
+  updateFavorites(token: String!, favorites: [String]!): NoLoggedUserGQL!
+  addCallRequest(name: String!, phone: String!): CallRequestGQL!
+  addOilChooseRequest(name: String!, phone: String!, carBrand: String!, carModel: String!, year: String!, engine: String!, transmission: String!): OilChooseRequestGQL!
+  addWholesaleRequest(name: String!, company: String!, inn: String!, email: String!, phone: String!): WholesaleRequestGQL!
+  addOrder(name: String!, phone: String!, delivery: String!, adress: String, cart: [CartItemARGS!]!, mail: String!, personal: Boolean!, payment: String!): OrderGQL!
+  addUserOrder(name: String!, phone: String!, delivery: String!, adress: String, cart: [CartItemARGS!]!, mail: String!, personal: Boolean!, payment: String!): OrderGQL!
+  addUser(name: String!, email: String!, password: String!, phone: String!, cart: [CartItemARGS], favorites: [String]!): UserGQL
+  updateCartUser(cart: [CartItemARGS]): UserGQL!
+  setNewPasswordByRecovery(password: String!, token: String!): Boolean!
+  updateUser(email: String, name: String, phone: String, adress: String, password: String): UserGQL!
+  updateUserFavorites(codes: [String]!): UserGQL!
+  uploadFile(file: Upload!): Boolean!
+}
+
+input CartItemARGS {
+  count: Int!
+  product: ProductARGS!
+}
+
+input ProductARGS {
+  code: ID
+  pack: Float
+  price: Float
+  name: String
+  img: String
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
