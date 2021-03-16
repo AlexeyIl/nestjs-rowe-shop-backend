@@ -1,3 +1,5 @@
+NestJS + GraphqQL + MongoDB
+
 worked example: 
 http://130.61.54.172/
 
